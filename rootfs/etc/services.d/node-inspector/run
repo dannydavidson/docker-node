@@ -1,0 +1,10 @@
+#!/usr/bin/execlineb -P
+
+with-contenv
+backtick -D "" -n START_NODE_INSPECTOR { printcontenv START_NODE_INSPECTOR }
+importas -u START_NODE_INSPECTOR START_NODE_INSPECTOR
+ifelse { s6-test -n ${START_NODE_INSPECTOR} }
+{
+	fdmove -c 2 1
+  node-inspector --web-port=${START_NODE_INSPECTOR}
+}
